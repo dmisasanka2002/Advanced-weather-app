@@ -88,14 +88,14 @@ function displayCurrentWeather(currentWeather) {
   mainImage.innerHTML = `<img src="images/${weather[0].main}.png" alt="" />`;
 }
 
-function displayForeCast(foreCast) {
+async function displayForeCast(foreCast) {
+  console.log(foreCast);
   const todayForecastDiv = document.getElementById("today-forecast");
   const forecastDiv = document.getElementById("forecast");
 
   const foreCastList = foreCast.list;
-  var { todayForecastList, nextDaysForecastList } =
-    getTodayForeCast(foreCastList);
-  todayForecastList.forEach((element) => {
+  var days = getTodayForeCast(foreCastList);
+  days.today.forEach((element) => {
     todayForecastDiv.innerHTML += `
       <div class="item">
         <p>${element.dt_txt.split(" ")[1]}</p>
@@ -105,41 +105,39 @@ function displayForeCast(foreCast) {
     `;
   });
 
-  const { avgTemp, avgHumidity, avgWeatherID } =
-    getDayAvarage(todayForecastList);
-  const { wetherIcon, description } = getWeatherCoditionID(avgWeatherID);
+  const avarage = getDayAvarage(days.today);
+  const avgweather = await getWeatherCoditionID(avarage.avgWeatherID);
   forecastDiv.innerHTML += `
                 <div class="item">
-                  <p>Today</p>
+                  <p>${avarage.date}</p>
                   <div>
-                    <img src="${iconURL}${wetherIcon}@2x.png" alt="" />
-                    <h4>sunny</h4>
+                    <img src="${iconURL}${avgweather.wetherIcon}.png" alt="" />
+                    <h4>${avgweather.description}</h4>
                   </div>
-                  <h3>${avgTemp}°C</h3>
+                  <h3>${avarage.avgTemp}°C</h3>
                 </div>`;
 
-  while (nextDaysForecastList) {
-    var { todayForecastList, nextDaysForecastList } =
-      getTodayForeCast(nextDaysForecastList);
-    const { avgTemp, avgHumidity, avgWeatherID } =
-      getDayAvarage(todayForecastList);
-    const { wetherIcon, description } = getWeatherCoditionID(avgWeatherID);
+  let nextDays = days.nextDays;
+  while (nextDays.length > 0) {
+    var day = getTodayForeCast(nextDays);
+    const avarage = getDayAvarage(day.today);
+    const avgweather = await getWeatherCoditionID(avarage.avgWeatherID);
     forecastDiv.innerHTML += `
                 <div class="item">
-                  <p>Today</p>
+                  <p>${avarage.date}</p>
                   <div>
-                  <img src="${iconURL}${wetherIcon}@2x.png" alt="" />
-                    <h4>sunny</h4>
+                    <img src="${iconURL}${avgweather.wetherIcon}.png" alt="" />
+                    <h4>${avgweather.description}</h4>
                   </div>
-                  <h3>${avgTemp}°C</h3>
+                  <h3>${avarage.avgTemp}°C</h3>
                 </div>`;
+    nextDays = day.nextDays;
   }
 }
 
 async function displayTodayAir(currentWeather) {
   const airdiv = document.getElementById("air");
 
-  console.log(currentWeather.main);
   const tempFeel = currentWeather.main.feels_like;
   const humidity = currentWeather.main.humidity;
   const wind = currentWeather.wind;
@@ -191,6 +189,7 @@ function getDayAvarage(list) {
   let temp = 0;
   let humidity = 0;
   let weatherID = 0;
+  let date = list[0].dt_txt.split(" ")[0];
   const size = list.length;
 
   for (const item of list) {
@@ -199,28 +198,31 @@ function getDayAvarage(list) {
     weatherID += item.weather[0].id;
   }
 
-  const avgTemp = temp / size;
+  const avgTemp = Math.round((temp / size) * 100) / 100;
   const avgHumidity = humidity / size;
-  const avgWeatherID = weatherID / size;
+  const avgWeatherID = Math.round(weatherID / size);
 
-  return { avgTemp, avgHumidity, avgWeatherID };
+  return { avgTemp, avgHumidity, avgWeatherID, date };
 }
 
-function getWeatherCoditionID(id) {
-  fetch("../jsonweather_conditions.json")
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.id) {
-        const wetherIcon = data.id.icon;
-        const description = data.id.description;
-        return { wetherIcon, description };
-      } else {
-        const id = getNearstId(id);
-        const wetherIcon = data.id.icon;
-        const description = data.id.description;
-        return { wetherIcon, description };
-      }
-    });
+async function getWeatherCoditionID(id) {
+  let wetherIcon;
+  let description;
+  const response = await fetch("../json/weather_conditions.json");
+  if (response.ok) {
+    const data = await response.json();
+    if (data[id]) {
+      console.log(data[id]);
+      wetherIcon = data[id].icon;
+      description = data[id].description;
+      return { wetherIcon, description };
+    } else {
+      const id = getNearstId(id);
+      const wetherIcon = data[id].icon;
+      const description = data[id].description;
+      return { wetherIcon, description };
+    }
+  }
 }
 
 function getNearstId(ID) {
