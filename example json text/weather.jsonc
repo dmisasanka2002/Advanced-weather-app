@@ -1,0 +1,56 @@
+/*Weather App
+
+API Key : 439300b944d80586999490fec6791720
+
+URL : https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}*/
+
+/*
+    --------------------------- .jsonc file format is allow to add comments in json files. ----------------------------
+
+    ------------------------- .json file format is not allow to add comments in json files. ---------------------------
+*/
+
+{
+  "coord": {
+    "lon": 80.7033,
+    "lat": 6.0729
+  },
+  "weather": [
+    {
+      "id": 804,
+      "main": "Clouds",
+      "description": "overcast clouds",
+      "icon": "04n"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 298.5,
+    "feels_like": 299.57,
+    "temp_min": 298.5,
+    "temp_max": 298.5,
+    "pressure": 1010,
+    "humidity": 95,
+    "sea_level": 1010,
+    "grnd_level": 1006
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 3.2,
+    "deg": 250,
+    "gust": 6
+  },
+  "clouds": {
+    "all": 100
+  },
+  "dt": 1715955017,
+  "sys": {
+    "country": "LK",
+    "sunrise": 1715905295,
+    "sunset": 1715949949
+  },
+  "timezone": 19800,
+  "id": 1227037,
+  "name": "Nihiluwa",
+  "cod": 200
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currunt Weather | Find your location's weather</title>
+
+    <link rel="shortcut icon" href="images/clouds.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <section class="dashboard">
+        <!--1-->
+        <img src="images/clouds.ico" alt="" class="icon" /><br /><br />
+        <dl>
+          <dt></dt>
+          <dd>
+            <p>Home</p>
+            <br /><br />
+            <p>Weather</p>
+            <br /><br />
+            <p>Cities</p>
+            <br /><br />
+            <p>About Us</p>
+          </dd>
+        </dl>
+      </section>
+
+      <div class="main">
+        <div class="head">
+          <div class="search">
+            <!--2-->
+            <input
+              type="text"
+              name="search"
+              id="searchbar"
+              placeholder="  Search for cities"
+            />
+          </div>
+
+          <div class="date-time" id="date-time"><!--3--></div>
+        </div>
+
+        <div class="content">
+          <div class="today-content">
+            <div class="basics">
+              <div class="basics-details" id="basic-details">
+                <!--4-->
+                <h2>CITY</h2>
+                <h3>Weather main</h3>
+                <p>Weather description</p>
+                <h1>30°C</h1>
+              </div>
+
+              <div class="basics-image" id="main-image">
+                <!--5-->
+                <img src="images/clear.png" alt="" />
+              </div>
+            </div>
+
+            <div class="today-forecast">
+              <!--6-->
+              <div class="header">
+                <p>Today's Forecast</p>
+                <p><input type="button" value="see more" /></p>
+              </div>
+              <div class="content" id="today-forecast"></div>
+            </div>
+
+            <div class="air">
+              <!--7-->
+              <div class="header">
+                <p>Air Conditions</p>
+                <p><input type="button" value="see more" /></p>
+              </div>
+              <div class="content" id="air"></div>
+            </div>
+          </div>
+
+          <div class="forecast">
+            <!--8-->
+            <div class="header">
+              <p>5-Day Forecast</p>
+              <p><input type="button" value="see more" /></p>
+            </div>
+            <div class="content" id="forecast"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+:root {
+  --font-base: "Poppins"; /*, sans-serif*/
+  --primary-color: #2f3640;
+  --secondary-color: #a3a2a2;
+  --dark-color: #1e202a;
+  --light-color: #ffffff;
+  --third-color: rgb(31 117 212);
+  --margin: 5px;
+  --radius: 20px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-base);
+}
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.head .date-time,
+.today-content .today-forecast,
+.today-content .air,
+.content .forecast {
+  background: var(--primary-color);
+}
+/*.basics {
+  border: 1px solid red;
+}*/
+.container,
+.dashboard,
+.search input,
+.head .date-time,
+.today-forecast,
+.air,
+.forecast {
+  border-radius: var(--radius);
+}
+.container {
+  background: var(--dark-color);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container h1,
+.container h2,
+.container h3 {
+  color: var(--light-color);
+}
+.container p {
+  color: var(--secondary-color);
+}
+.container div {
+  display: flex;
+  margin: var(--margin);
+  justify-content: space-evenly;
+}
+.dashboard {
+  background: var(--primary-color);
+  margin-left: calc(3 * var(--margin));
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dashboard .icon {
+  height: 100px;
+  object-fit: cover;
+}
+.main {
+  width: 100%;
+  height: 100vh;
+  background: var(--dark-color);
+  flex-direction: column;
+  border-radius: var(--radius);
+  overflow-y: auto;
+}
+.main .head {
+  justify-content: space-around;
+  height: 15vh;
+  margin-top: 10px; /* Top Alignment*/
+}
+.head .search {
+  width: 65%;
+}
+.search input {
+  height: 40px;
+  width: 100%;
+  padding-left: 20px;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+.head .date-time {
+  width: 35%;
+  height: 110%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.content .header {
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 5px auto;
+}
+.content .content {
+  align-items: flex-start;
+  height: 100%;
+}
+.main .content,
+.today-content .basics {
+  align-items: center;
+  justify-content: space-around;
+}
+.content .today-content {
+  flex-direction: column;
+  width: 65%;
+}
+.today-content .content .item {
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-start;
+  width: 50%;
+  padding-left: 5px;
+}
+.today-content .basics {
+  height: 25vh;
+}
+.basics .basics-details {
+  flex-direction: column;
+  width: 50%;
+}
+.today-content .today-forecast {
+  height: 28vh;
+  flex-direction: column;
+}
+.today-forecast .content {
+  flex-grow: red;
+}
+.today-forecast .content .item {
+  width: auto;
+  align-items: center;
+}
+.today-forecast .content .item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+.today-content .air {
+  height: 28vh;
+  flex-direction: column;
+}
+.today-content .air .content {
+  width: 100%;
+}
+
+.content .header input {
+  height: 20px;
+  cursor: pointer;
+  background: var(--third-color);
+  color: var(--light-color);
+  padding: 5px;
+  border: none;
+  font-size: small;
+  border-radius: var(--radius);
+}
+
+.content .forecast {
+  width: 35%;
+  height: 84vh;
+  flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+  .dashboard {
+    width: 95%;
+    margin: var(--margin) auto;
+  }
+  .basics-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .main .content {
+    flex-direction: column;
+  }
+  .content .today-content {
+    width: 100%;
+  }
+  .today-forecast .content {
+    flex-direction: row;
+  }
+  .today-content .today-forecast {
+    height: auto;
+    flex-direction: column;
+  }
+  .today-content .air {
+    height: auto;
+  }
+  .today-content .air .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+  .content .forecast {
+    width: 98%;
+    height: auto;
+  }
+}
+@media (max-width: 420px) {
+  .today-forecast .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
