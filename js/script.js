@@ -93,7 +93,8 @@ function displayForeCast(foreCast) {
   const forecastDiv = document.getElementById("forecast");
 
   const foreCastList = foreCast.list;
-  const todayForecastList = getTodayForeCast(foreCastList);
+  var { todayForecastList, nextDaysForecastList } =
+    getTodayForeCast(foreCastList);
   todayForecastList.forEach((element) => {
     todayForecastDiv.innerHTML += `
       <div class="item">
@@ -103,6 +104,36 @@ function displayForeCast(foreCast) {
       </div>
     `;
   });
+
+  const { avgTemp, avgHumidity, avgWeatherID } =
+    getDayAvarage(todayForecastList);
+  const { wetherIcon, description } = getWeatherCoditionID(avgWeatherID);
+  forecastDiv.innerHTML += `
+                <div class="item">
+                  <p>Today</p>
+                  <div>
+                    <img src="${iconURL}${wetherIcon}@2x.png" alt="" />
+                    <h4>sunny</h4>
+                  </div>
+                  <h3>${avgTemp}°C</h3>
+                </div>`;
+
+  while (nextDaysForecastList) {
+    var { todayForecastList, nextDaysForecastList } =
+      getTodayForeCast(nextDaysForecastList);
+    const { avgTemp, avgHumidity, avgWeatherID } =
+      getDayAvarage(todayForecastList);
+    const { wetherIcon, description } = getWeatherCoditionID(avgWeatherID);
+    forecastDiv.innerHTML += `
+                <div class="item">
+                  <p>Today</p>
+                  <div>
+                  <img src="${iconURL}${wetherIcon}@2x.png" alt="" />
+                    <h4>sunny</h4>
+                  </div>
+                  <h3>${avgTemp}°C</h3>
+                </div>`;
+  }
 }
 
 async function displayTodayAir(currentWeather) {
@@ -144,12 +175,73 @@ function displayAirPollution(airPollution) {
 
 function getTodayForeCast(list) {
   let today = new Array();
-  let nextDays;
+  let nextDays = new Array();
+
   list.forEach((element) => {
     if (list[0].dt_txt.split(" ")[0] == element.dt_txt.split(" ")[0]) {
       today.push(element);
     } else {
+      nextDays.push(element);
     }
   });
-  return today;
+  return { today, nextDays };
+}
+
+function getDayAvarage(list) {
+  let temp = 0;
+  let humidity = 0;
+  let weatherID = 0;
+  const size = list.length;
+
+  for (const item of list) {
+    temp += item.main.feels_like;
+    humidity += item.main.humidity;
+    weatherID += item.weather[0].id;
+  }
+
+  const avgTemp = temp / size;
+  const avgHumidity = humidity / size;
+  const avgWeatherID = weatherID / size;
+
+  return { avgTemp, avgHumidity, avgWeatherID };
+}
+
+function getWeatherCoditionID(id) {
+  fetch("../jsonweather_conditions.json")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.id) {
+        const wetherIcon = data.id.icon;
+        const description = data.id.description;
+        return { wetherIcon, description };
+      } else {
+        const id = getNearstId(id);
+        const wetherIcon = data.id.icon;
+        const description = data.id.description;
+        return { wetherIcon, description };
+      }
+    });
+}
+
+function getNearstId(ID) {
+  let minid = ID;
+  let maxid = ID;
+  fetch("../jsonweather_conditions.json")
+    .then((response) => response.json())
+    .then((data) => {
+      while (!data.minid) {
+        minid--;
+      }
+      const min = minid;
+      while (!data.maxid) {
+        maxid++;
+      }
+      const max = maxid;
+
+      if (ID - min > max - ID) {
+        return max;
+      } else {
+        return min;
+      }
+    });
 }

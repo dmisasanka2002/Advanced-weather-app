@@ -48,7 +48,8 @@ body {
 }
 .container h1,
 .container h2,
-.container h3 {
+.container h3,
+.container h4 {
   color: var(--light-color);
 }
 .container p {
@@ -138,9 +139,6 @@ body {
   height: 28vh;
   flex-direction: column;
 }
-.today-forecast .content {
-  flex-grow: red;
-}
 .today-forecast .content .item {
   width: auto;
   align-items: center;
@@ -168,11 +166,26 @@ body {
   font-size: small;
   border-radius: var(--radius);
 }
-
 .content .forecast {
   width: 35%;
   height: 84vh;
   flex-direction: column;
+}
+.forecast .content .column {
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+}
+.column .item {
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 12%;
+  border-bottom: 1px solid var(--secondary-color);
+}
+.column .item div {
+  align-items: center;
+  column-gap: 10px;
 }
 
 @media (max-width: 600px) {
