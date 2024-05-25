@@ -1,6 +1,7 @@
 const apiKey = "439300b944d80586999490fec6791720";
 const baseUrl = "https://api.openweathermap.org/data/2.5/";
 const iconURL = "https://openweathermap.org/img/wn/";
+let coordinates;
 
 const dateTimeDiv = document.getElementById("date-time");
 function updateTime() {
@@ -24,13 +25,16 @@ document.getElementById("searchbar").addEventListener("keypress", (e) => {
 const seemorebtn = document.querySelectorAll(".content .header input");
 seemorebtn.forEach((element) => {
   element.addEventListener("click", () => {
-    window.location.href = "pages/moreinfo.html";
+    window.location.href = `pages/moreinfo.html?coor=${encodeURIComponent(
+      coordinates
+    )}`;
   });
 });
 
 async function fetchWeatherData(city) {
   const currentWeather = await getCurrentWeather(city);
   const { lat, lon } = currentWeather.coord;
+  coordinates = { lat, lon };
   displayCurrentWeather(currentWeather);
 
   const foreCast = await getForeCast(city);
