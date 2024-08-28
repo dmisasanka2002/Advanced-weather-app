@@ -59,8 +59,8 @@ Contributions to improve the Weather App are welcome. Please follow these steps 
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
-Acknowledgments
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 • Weather data provided by OpenWeather
 
 ## Contact
