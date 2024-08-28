@@ -65,5 +65,5 @@ Acknowledgments
 
 ## Contact
 
-Your Name - ishansasankadisanayaka@gmail.com
+Ishan Sasanka - ishansasankadisanayaka@gmail.com
 Project Link: https://github.com/dmisasanka2002/Advanced-weather-app.git
