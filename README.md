@@ -25,14 +25,14 @@ A sleek and informative weather application that provides current weather condit
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/weather-app.git
+   git clone https://github.com/dmisasanka2002/Advanced-weather-app.git
 
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd weather-app
+   cd Advanced-weather-app
    ```
 
 3. Open the index.html file in your web browser to run the application locally.
@@ -65,5 +65,5 @@ Acknowledgments
 
 ## Contact
 
-Your Name - your.email@example.com
-Project Link: https://github.com/yourusername/weather-app
+Your Name - ishansasankadisanayaka@gmail.com
+Project Link: https://github.com/dmisasanka2002/Advanced-weather-app.git
