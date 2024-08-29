@@ -1,4 +1,4 @@
-const apiKey = "Your_API_Key";
+const apiKey = "439300b944d80586999490fec6791720";
 const baseUrl = "https://api.openweathermap.org/data/2.5/";
 const iconURL = "https://openweathermap.org/img/wn/";
 let coordinates;
